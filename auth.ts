@@ -63,7 +63,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     session: { strategy: "jwt", maxAge: 24 * 60 * 60 },
     providers: [
         Resend({
-            from: ""
+            from: 'Acme <onboarding@resend.dev>',
         }),
         ...authConfig.providers,
     ],
