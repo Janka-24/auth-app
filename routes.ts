@@ -1,7 +1,8 @@
 //Pour définir les routes annonyme ou connecté
 
 export const publicRoutes = [
-    "/"
+    "/",
+    // "/dashboard"
 ]
 
 export const authRoutes = [
