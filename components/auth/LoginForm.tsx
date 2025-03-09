@@ -29,8 +29,12 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { signIn } from "next-auth/react";
 import { DEFAULT_REDIRECT } from "@/routes";
+import { useSearchParams } from "next/navigation";
+import FormError from "../form-error";
 
 export default function LoginForm() {
+  const searchParams = useSearchParams();
+  const urlError = searchParams.get('error') == "OAuthAccountNotLinked" ? "Le compte n'a pas été lié. réessayer à nouveau" : null
   const [isGoogleLoading, setGoogleLoading] = useState(false);
   const [isGithubLoading, setGithubLoading] = useState(false);
 
@@ -55,7 +59,7 @@ export default function LoginForm() {
   };
 
   const onClick = async (provider: "google" | "github") => {
-    console.log(provider);
+    signIn(provider, { callbackUrl: DEFAULT_REDIRECT });
   };
 
   return (
@@ -66,6 +70,7 @@ export default function LoginForm() {
       </CardHeader>
 
       <CardContent className="space-y-4">
+        <FormError message={urlError} />
         <Form {...form}>
           <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
